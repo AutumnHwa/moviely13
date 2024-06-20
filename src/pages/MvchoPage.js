@@ -40,7 +40,7 @@ function MvchoPage() {
     const fetchMovies = async () => {
       try {
         console.log('Fetching movies...');
-        const response = await fetch('http://43.203.39.119:8080/api/movies?size=1000', { mode: 'cors' });
+        const response = await fetch('https://moviely.duckdns.org/api/movies?size=1000', { mode: 'cors' });
         console.log('API 요청 성공:', response);
 
         if (!response.ok) {
