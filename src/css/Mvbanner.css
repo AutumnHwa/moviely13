@@ -1,0 +1,93 @@
+.movie-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: #000;
+  width: 154px;
+  height: 260px;
+}
+
+
+.movie-info {
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: auto repeat(4, minmax(20px, auto)); /* 제목 + 최대 4개의 로고에 대해 동적 컬럼 배치 */
+  grid-template-rows: 20px 20px; /* 첫 번째 행은 20px, 두 번째 행(별점)은 20px의 높이 */
+  gap: 2px; /* 로고 사이의 간격 */
+  align-items: center;
+  background: #2F4881;
+  color: white;
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.movie-title {
+  grid-column: 1; /* 첫 번째 열에 배치 */
+  grid-row: 1; /* 첫 번째 행에 배치 */
+  font-size: 11px; /* 폰트 크기 조정 */
+  white-space: nowrap; /* 제목이 한 줄로 표시되도록 함 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+  text-overflow: ellipsis; /* 내용이 넘칠 경우 말줄임표(...) 표시 */
+  margin-right: 5px; /* 로고와의 여백 추가 */
+} 
+
+.flatrate-logos {
+  grid-column: 2 / span 4; /* 로고가 두 번째 열부터 시작하여 최대 4개의 열을 차지 */
+  display: flex;
+  justify-content: start;
+}
+
+.flatrate-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain; /* 이미지 비율 유지 */
+  margin-left: 5px;
+}
+
+.movie-rating {
+  grid-column: 1 / 5; /* 첫 번째부터 네 번째 열까지 차지 */
+  grid-row: 2; /* 두 번째 행에 배치 */
+}
+
+.add-button {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-left: auto;
+  background-color: transparent; /* 배경 투명 */
+  border: none; /* 테두리 제거 */
+  box-shadow: none; /* 그림자 제거 */
+  color: white; /* 텍스트 색상 하얀색 */
+  grid-column: 5;
+  grid-row: 2;
+  justify-self: end; /* 버튼을 오른쪽 끝으로 */
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer; /* 마우스 오버시 커서 변경 */
+}
+
+.bannerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.movie-rating .star {
+  color: white;
+  font-size: 15px;
+  margin: 1px;
+}
+
+.movie-rating .star.filled {
+  color: gold;
+}
+
+@media (max-width: 720px) {
+  .bannerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

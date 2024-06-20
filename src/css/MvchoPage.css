@@ -1,0 +1,140 @@
+.MvchoPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #001A56;
+}
+
+.authButton
+{
+  height: 30px;
+}
+.logo {
+  margin-top: 10px;
+  width: 250px;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.mainText {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  margin-top: -20px;
+}
+
+.subText {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+}
+
+.recommendButton {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 120px;
+  height: 30px;
+  border: 1px solid white;
+  border-radius: 15px;
+  background-color: transparent;
+  color: white;
+  font-size: 15px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.recommendButton:hover {
+  background-color: #FBE64D;
+  color: black;
+}
+
+.stickyTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #001A56;
+  padding: 10px 0;
+  width: 100%;
+  height: 245px;
+}
+
+.genreButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px 10px;
+  padding: 15px 0;
+  width: 600px;
+}
+
+.genreButton1 {
+  width: 100px;
+  height: 34px;
+  margin: 5px;
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  color: white;
+  font-size: 17px;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.genreButton1:hover {
+  color: #FBE64D;
+  font-weight: bold;
+}
+
+.genreButton1.active {
+  color: #FBE64D;
+  font-weight: bold;
+}
+
+@media (max-width: 720px) {
+  .mainText {
+    font-size: 17px;
+  }
+
+  .subText {
+    font-size: 11px;
+  }
+
+  .recommendButton {
+    width: 96px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .genreButtons {
+    width: 100%;
+    padding: 15px 0;
+    gap: 2px 0px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .genreButton1 {
+    width: 80%;
+    height: 27px;
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  .stickyTop {
+    padding: 10px 0;
+    width: 100%;
+    height: 220px;
+  }
+}
