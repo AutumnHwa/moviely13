@@ -26,8 +26,8 @@ function LogSignPage() {
 
       console.log("Backend response data:", data);
 
-      if (data.token) {
-        login(data.token, data.user);
+      if (data.jwtToken) {
+        login(data.jwtToken, data.user);
         if (data.isNewUser) {
           navigate('/add');
         } else {
