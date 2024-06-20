@@ -9,7 +9,7 @@ function LandingPage() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://43.203.39.119:8080/api/movies?size=1000', { mode: 'cors' });
+        const response = await fetch('https://43.203.39.119:8080/api/movies?size=1000', { mode: 'cors' }); // HTTPS로 변경
         const data = await response.json();
         if (data && data.content) {
           setMovies(data.content);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import LandingPage from './pages/LandingPage';
 import LogSignPage from './pages/LogSignPage';
 import AddPage from './pages/AddPage';
@@ -12,23 +13,27 @@ import MycalPage from './pages/MycalPage';
 import MvsrchPage from './pages/MvsrchPage';
 import { AuthProvider } from './context/AuthContext';
 
+const CLIENT_ID = '13094654813-nqglekemv1iff66rsq4luqftbfgv51hi.apps.googleusercontent.com';
+
 const App = () => (
-  <Router>
+  <GoogleOAuthProvider clientId={CLIENT_ID}>
     <AuthProvider>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/log-sign" element={<LogSignPage />} />
-        <Route path="/add" element={<AddPage />} />
-        <Route path="/movie-select" element={<MvchoPage />} />
-        <Route path="/recommendations" element={<RecomPage />} />
-        <Route path="/movie/:id" element={<MvdetailPage />} />
-        <Route path="/my/watched" element={<MyalrPage />} />
-        <Route path="/my/wishlist" element={<MywishPage />} />
-        <Route path="/my/calendar" element={<MycalPage />} />
-        <Route path="/movie-search" element={<MvsrchPage />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/log-sign" element={<LogSignPage />} />
+          <Route path="/add" element={<AddPage />} />
+          <Route path="/movie-select" element={<MvchoPage />} />
+          <Route path="/recommendations" element={<RecomPage />} />
+          <Route path="/movie/:id" element={<MvdetailPage />} />
+          <Route path="/my/watched" element={<MyalrPage />} />
+          <Route path="/my/wishlist" element={<MywishPage />} />
+          <Route path="/my/calendar" element={<MycalPage />} />
+          <Route path="/movie-search" element={<MvsrchPage />} />
+        </Routes>
+      </Router>
     </AuthProvider>
-  </Router>
+  </GoogleOAuthProvider>
 );
 
 export default App;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import '../css/LogSignPage.css';
 import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext';
@@ -62,12 +62,4 @@ function LogSignPage() {
   );
 }
 
-function App() {
-  return (
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <LogSignPage />
-    </GoogleOAuthProvider>
-  );
-}
-
-export default App;
+export default LogSignPage;
