@@ -1,11 +1,10 @@
+// src/pages/LogSignPage.js
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import '../css/LogSignPage.css';
 import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext';
-
-const CLIENT_ID = '13094654813-nqglekemv1iff66rsq4luqftbfgv51hi.apps.googleusercontent.com';
 
 function LogSignPage() {
   const navigate = useNavigate();
