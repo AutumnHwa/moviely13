@@ -47,7 +47,7 @@ function RecomPage() {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch('http://43.203.39.119:8080/api/recommend', {
+        const response = await fetch('https://moviely.duckdns.org/api/recommend', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
