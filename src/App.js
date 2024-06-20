@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import LandingPage from './pages/LandingPage';
 import LogSignPage from './pages/LogSignPage';
 import AddPage from './pages/AddPage';
@@ -12,13 +11,14 @@ import MywishPage from './pages/MywishPage';
 import MycalPage from './pages/MycalPage';
 import MvsrchPage from './pages/MvsrchPage';
 import { AuthProvider } from './context/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const CLIENT_ID = '13094654813-nqglekemv1iff66rsq4luqftbfgv51hi.apps.googleusercontent.com';
 
 const App = () => (
   <GoogleOAuthProvider clientId={CLIENT_ID}>
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/log-sign" element={<LogSignPage />} />
@@ -31,8 +31,8 @@ const App = () => (
           <Route path="/my/calendar" element={<MycalPage />} />
           <Route path="/movie-search" element={<MvsrchPage />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   </GoogleOAuthProvider>
 );
 
