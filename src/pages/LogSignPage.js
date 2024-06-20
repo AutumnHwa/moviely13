@@ -1,4 +1,3 @@
-// src/pages/LogSignPage.js
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
@@ -13,6 +12,8 @@ function LogSignPage() {
   const handleGoogleSuccess = async (credentialResponse) => {
     const { credential } = credentialResponse;
 
+    console.log("Google Login Success, credential:", credential);
+
     try {
       const res = await fetch('https://moviely.duckdns.org/api/login', {
         method: 'POST',
@@ -22,6 +23,8 @@ function LogSignPage() {
         body: JSON.stringify({ token: credential }),
       });
       const data = await res.json();
+
+      console.log("Backend response data:", data);
 
       if (data.token) {
         login(data.token, data.user);
