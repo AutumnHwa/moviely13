@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import '../css/Signup.css'; // SignUpPage용 CSS 파일
+import '../css/Signup.css'; 
 import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext';
 
@@ -62,7 +62,7 @@ function SignUpPage() {
 
     try {
       console.log("Making HTTPS request to update info");
-      const response = await fetch('https://moviely.duckdns.org/update-info', { // HTTPS로 변경
+      const response = await fetch('https://moviely.duckdns.org/update-info', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
