@@ -26,13 +26,13 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     setRating(newRating);
 
     const ratingData = {
-      user_id: userId, // 사용자 ID를 props로 받음
-      movie_id: movieId, // 영화 ID
+      user_id: userId,
+      movie_id: movieId,
       rating: parseFloat(newRating)
     };
 
     try {
-      const response = await fetch('http://43.203.39.119:8080/ratings', {
+      const response = await fetch('https://moviely.duckdns.org/ratings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
         body: JSON.stringify(ratingData),
       });
 
-      const responseData = await response.text(); 
+      const responseData = await response.text();
 
       try {
         const jsonResponse = JSON.parse(responseData);
@@ -79,6 +79,7 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
   };
 
   const handlePosterClick = () => {
+    console.log('Navigating to movie detail page with movieId:', movieId);
     navigate(`/movie/${movieId}`);
   };
 

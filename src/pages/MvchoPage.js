@@ -83,7 +83,7 @@ function MvchoPage() {
       poster={movie.poster_path}
       flatrate={movie.flatrate.join(', ')}
       rating={Math.round(movie.vote_average / 2)}
-      movieId={movie.id} // 영화 ID 전달
+      movieId={movie.id || movie.movie_id} // 영화 ID 전달 (영화 ID가 'id' 또는 'movie_id'인지 확인)
       userId={user?.id} // 사용자 ID 전달
     />
   ));

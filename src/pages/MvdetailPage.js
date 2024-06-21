@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import Papa from 'papaparse';
-import moviesCSV from '../movie.csv';
 import watchaLogo from '../watcha.png';
 import netflixLogo from '../netflix.png';
 import disneyPlusLogo from '../disneyplus.png';
@@ -64,20 +62,39 @@ const MvdetailPage = () => {
   const userId = sessionStorage.getItem('userId'); 
 
   useEffect(() => {
-    Papa.parse(moviesCSV, {
-      download: true,
-      header: true,
-      complete: (result) => {
-        const foundMovie = result.data.find(movie => parseInt(movie.movie_id, 10) === parseInt(id, 10));
-        if (foundMovie) {
-          console.log("Before Mapping:", foundMovie.genre);
-          foundMovie.genre = foundMovie.genre.split(',').map(genreId => genreMapping[genreId.trim()] || genreId.trim()).join(', ');
-          console.log("After Mapping:", foundMovie.genre);
-          setMovie(foundMovie);
-        }
+    console.log('Movie ID:', id); // 확인을 위해 추가
+    const fetchMovie = async () => {
+      if (!id) {
+        console.error('Movie ID is undefined');
         setLoading(false);
-      },
-    });
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://moviely.duckdns.org/api/movies/${id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Movie data:', data); // 데이터 구조 확인
+
+        if (!data || !data.genre) {
+          throw new Error('Invalid data structure');
+        }
+
+        // 장르를 매핑합니다.
+        const genreNames = data.genre.split(',').map(genreId => genreMapping[genreId.trim()] || genreId.trim()).join(', ');
+        data.genre = genreNames;
+
+        setMovie(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch movie:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchMovie();
   }, [id]);
 
   const handleStarClick = async (index) => {
@@ -91,7 +108,7 @@ const MvdetailPage = () => {
     };
 
     try {
-      const response = await fetch('http://43.203.39.119:8080/ratings', {
+      const response = await fetch('https://moviely.duckdns.org/ratings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +116,7 @@ const MvdetailPage = () => {
         body: JSON.stringify(ratingData),
       });
 
-      const responseData = await response.text(); 
+      const responseData = await response.text();
       try {
         const jsonResponse = JSON.parse(responseData);
         if (response.ok) {
@@ -205,7 +222,7 @@ const MvdetailPage = () => {
             onClick={() => window.open(flatrateUrls[platform], '_blank')}
           >
             <img src={flatrateLogos[platform]} alt={platform} className="ott-logo" />
-            <span>{flatrateNames[platform]}</span> {/* 플랫폼 이름을 한글로 변환 */}
+            <span>{flatrateNames[platform]}</span>
           </button>
         ))}
       </div>
