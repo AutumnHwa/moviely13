@@ -1,0 +1,111 @@
+.signUpPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .signUpPage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../Loginback.png'); /* 배경 이미지 동일 */
+    background-size: cover;
+    opacity: 0.7;
+    z-index: 0;
+  }
+  
+  .signUp-logo {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    z-index: 1;
+    width: 260px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .signUp-logo img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .signUpBox {
+    background-color: rgba(0, 0, 0, 0.68);
+    border: 1px solid white;
+    width: 460px;
+    height: 600px; /* 높이 조정 */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  h2 {
+    margin-top: 49px;
+    color: white;
+  }
+  
+  p {
+    margin-top: 20px;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+  }
+  
+  .inputGroup {
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .inputGroup label {
+    display: block;
+    color: white;
+    margin-bottom: 5px;
+  }
+  
+  .inputGroup select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .addButton {
+    width: 320px;
+    height: 41px;
+    background-color: white;
+    color: #141414;
+    font-size: 16px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .addButton:hover {
+    background-color: #FBE64D;
+    color: black;
+  }
+  
+  .googleLoginButton {
+    width: 320px;
+    height: 41px;
+    background-color: white;
+    color: #141414;
+    font-size: 16px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .googleLoginButton:hover {
+    background-color: #FBE64D;
+    color: black;
+  }
+  
