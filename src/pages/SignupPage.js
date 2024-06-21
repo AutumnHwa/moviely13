@@ -17,7 +17,7 @@ function SignUpPage() {
     console.log("Google Login Success, credential:", credential);
 
     try {
-      const res = await fetch('https://moviely.duckdns.org/api/login', { // HTTPS로 변경
+      const res = await fetch('https://moviely.duckdns.org/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function SignUpPage() {
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
-      const response = await fetch('https://moviely.duckdns.org/update-info', { // HTTPS로 변경
+      const response = await fetch('https://moviely.duckdns.org/update-info', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,12 +69,17 @@ function SignUpPage() {
         body: JSON.stringify(addInfoData),
       });
 
-      if (response.ok) {
-        console.log("정보 입력 성공");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Data from server:', data);
+
+      if (data.success) {
+        navigate('/movie-select');
       } else {
-        const errorData = await response.json();
-        console.error('정보 입력 실패:', errorData);
-        alert('정보 입력 실패: ' + JSON.stringify(errorData));
+        alert('정보 입력 실패: ' + (data.message || 'Unknown error'));
       }
     } catch (error) {
       console.error('Error:', error);

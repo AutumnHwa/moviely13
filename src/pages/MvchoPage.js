@@ -92,7 +92,7 @@ function MvchoPage() {
     if (authToken) {
       logout();
     } else {
-      navigate('/log-sign');
+      navigate('/login');
     }
   };
 
