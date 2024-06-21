@@ -61,7 +61,7 @@ function SignUpPage() {
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
-      const response = await fetch('http://moviely.duckdns.org/update-info', {
+      const response = await fetch('https://moviely.duckdns.org/update-info', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
