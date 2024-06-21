@@ -60,7 +60,7 @@ p {
 }
 
 .googleLoginButton {
-  width: 320px;
+  width: 450px;
   height: 41px;
   background-color: white;
   color: #141414;
@@ -75,6 +75,7 @@ p {
   color: black;
   
 }
+
 
 .redirect-text {
   margin-top: 20px;

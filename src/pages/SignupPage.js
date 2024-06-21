@@ -17,7 +17,7 @@ function SignUpPage() {
     console.log("Google Login Success, credential:", credential);
 
     try {
-      const res = await fetch('https://moviely.duckdns.org/api/login', {
+      const res = await fetch('https://moviely.duckdns.org/api/login', { // HTTPS로 변경
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function SignUpPage() {
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
-      const response = await fetch('https://moviely.duckdns.org/update-info', {
+      const response = await fetch('https://moviely.duckdns.org/update-info', { // HTTPS로 변경
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
