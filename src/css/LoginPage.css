@@ -78,12 +78,12 @@ p {
 
 .redirect-text {
   margin-top: 20px;
-  color: yellow;
+  color: #FBE64D;
   font-size: 15px;
   text-align: center;
 }
 
 .redirect-link {
-  color: yellow;
+  color: #FBE64D;
   text-decoration: underline yellow;
 }
