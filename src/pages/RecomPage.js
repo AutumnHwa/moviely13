@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Papa from 'papaparse';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -9,6 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import MvBanner from './MvBanner';
 import '../css/RecomPage.css';
 import logoImage from '../logo.png';
+import { useAuth } from '../context/AuthContext';
 import moviesCSV from '../movie.csv';
 
 const genreMapping = {
@@ -35,6 +35,7 @@ const genreMapping = {
 
 function RecomPage() {
   const navigate = useNavigate();
+  const { authToken, user, logout } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('recommendations');
   const [randomMovies, setRandomMovies] = useState([]);
@@ -42,7 +43,7 @@ function RecomPage() {
   const [movieItems, setMovieItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const userId = 1; // 하드코딩된 사용자 ID
+  const userId = user?.id;
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -77,7 +78,9 @@ function RecomPage() {
       }
     };
 
-    fetchRecommendations();
+    if (userId) {
+      fetchRecommendations();
+    }
 
     Papa.parse(moviesCSV, {
       download: true,
@@ -107,11 +110,31 @@ function RecomPage() {
     navigate('/movie-search', { state: { searchTerm } });
   };
 
+  const handleAuthButtonClick = () => {
+    if (authToken) {
+      logout();
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="RecomPage">
-      <Link to="/" className="logo">
-        <img src={logoImage} alt="Logo" />
-      </Link>
+      <header className="pageHeader">
+        <Link to="/" className="logo">
+          <img src={logoImage} alt="Logo" />
+        </Link>
+        <div className="authButtons">
+          <button className="authButton" onClick={handleAuthButtonClick}>
+            {authToken ? '로그아웃' : '로그인'}
+          </button>
+          {authToken && (
+            <button className="mypageButton" onClick={() => navigate('/my/watched')}>
+              마이페이지
+            </button>
+          )}
+        </div>
+      </header>
       <div className="searchContainer">
         <input
           type="text"
@@ -124,7 +147,7 @@ function RecomPage() {
           검색
         </button>
       </div>
-      <div className="greetingText">Autumn님을 위한 취향저격 영화를 찾아봤어요.</div>
+      <div className="greetingText">{user?.name || 'User'}님을 위한 취향저격 영화를 찾아봤어요.</div>
       <div className="tabButtons">
         <button
           className={activeTab === 'recommendations' ? 'tabButton active' : 'tabButton'}
@@ -153,8 +176,8 @@ function RecomPage() {
                         title={topMovie.title}
                         poster={topMovie.poster_path}
                         flatrate={Array.isArray(topMovie.flatrate) ? topMovie.flatrate.join(', ') : topMovie.flatrate}
-                        userId={userId} // 사용자 ID 전달
-                        movieId={topMovie.movie_id} // 영화 ID 전달
+                        userId={userId} 
+                        movieId={topMovie.movie_id}
                       />
                     </div>
                   )
@@ -166,7 +189,7 @@ function RecomPage() {
                 ) : (
                   movieItems.map((movie, index) => {
                     const genreList = movie.genre ? movie.genre.split(',').map(g => genreMapping[g.trim()]).filter(Boolean) : [];
-                    const posterUrl = movie.poster_path ? `http://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
+                    const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
                     console.log('Movie Data:', movie); // Movie 데이터 로그 출력
                     return (
                       <div key={index} className="movieItem">
@@ -196,7 +219,7 @@ function RecomPage() {
                 modules={[Navigation, Pagination]}
               >
                 {randomMovies.map((movie, index) => {
-                  const posterUrl = movie.poster_path ? `http://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
+                  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
                   return (
                     <SwiperSlide key={index}>
                       <div style={{ transform: 'scale(0.8)' }}>

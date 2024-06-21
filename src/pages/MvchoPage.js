@@ -102,9 +102,16 @@ function MvchoPage() {
         <Link to="/" className="logo">
           <img src={logoImage} alt="Logo" />
         </Link>
-        <button className="authButton" onClick={handleAuthButtonClick}>
-          {authToken ? '로그아웃' : '로그인'}
-        </button>
+        <div className="authButtons">
+          <button className="authButton" onClick={handleAuthButtonClick}>
+            {authToken ? '로그아웃' : '로그인'}
+          </button>
+          {authToken && (
+            <button className="mypageButton" onClick={() => navigate('/my/watched')}>
+              마이페이지
+            </button>
+          )}
+        </div>
       </header>
       <div className="mainText">재미있게 봤거나 눈길이 가는 영화들을 평가해주세요.</div>
       <div className="subText">찜한 영화들을 바탕으로 MOVIELY가 취향저격 영화들을 추천해 드려요.</div>

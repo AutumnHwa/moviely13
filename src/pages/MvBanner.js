@@ -73,9 +73,40 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     setShowModal(false);
   };
 
-  const handleSaveModal = (option) => {
-    console.log("저장 옵션:", option);
+  const handleSaveModal = async (option) => {
+    const saveData = {
+      user_id: userId,
+      movie_id: movieId,
+      option: option
+    };
+
+    try {
+      const response = await fetch(`https://moviely.duckdns.org/${option}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(saveData),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        setMessage('영화가 저장되었습니다!');
+      } else {
+        console.error('Failed to save movie:', responseData);
+        setMessage('영화 저장에 실패했습니다: ' + (responseData.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage('영화 저장에 실패했습니다.');
+    }
+
     setShowModal(false);
+
+    setTimeout(() => {
+      setMessage('');
+    }, 3000);
   };
 
   const handlePosterClick = () => {
@@ -85,13 +116,13 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
 
   const validFlatrate = typeof flatrate === 'string' ? flatrate.split(', ').map(service => service.trim().toLowerCase()).filter(Boolean) : [];
 
-  console.log('Poster URL:', poster ? `http://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image');
+  console.log('Poster URL:', poster ? `https://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image');
 
   validFlatrate.forEach(service => {
     console.log(`Service: ${service}, URL: ${flatrateLogos[service]}`);
   });
 
-  const posterUrl = poster ? `http://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image';
+  const posterUrl = poster ? `https://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image';
 
   return (
     <div className="movie-banner">
