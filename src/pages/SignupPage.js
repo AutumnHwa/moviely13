@@ -61,13 +61,16 @@ function SignUpPage() {
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
-      const response = await fetch('https://moviely.duckdns.org/update-info', {
+      console.log("Making HTTPS request to update info");
+      const response = await fetch('https://moviely.duckdns.org/update-info', { // HTTPS로 변경
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(addInfoData),
       });
+
+      console.log("Response from server:", response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
