@@ -1,67 +1,39 @@
-import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
-import '../css/LogSignPage.css';
-import logoImage from '../logo.png';
-import { useAuth } from '../context/AuthContext';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function LogSignPage() {
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [authToken, setAuthToken] = useState(() => sessionStorage.getItem('authToken') || null);
+  const [user, setUser] = useState(() => JSON.parse(sessionStorage.getItem('user')) || null);
   const navigate = useNavigate();
-  const { login } = useAuth();
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    const { credential } = credentialResponse;
-
-    console.log("Google Login Success, credential:", credential);
-
-    try {
-      const res = await fetch('https://moviely.duckdns.org/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: credential }),
-      });
-      const data = await res.json();
-
-      console.log("Backend response data:", data);
-
-      if (data.jwtToken) {
-        login(data.jwtToken, data.user);
-        if (data.isNewUser) {
-          navigate('/add'); // 신규 사용자
-        } else {
-          navigate('/movie-select'); // 기존 사용자
-        }
-      } else {
-        alert('로그인에 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('Backend redirection failed:', error);
-      alert('백엔드 처리에 실패했습니다.');
+  useEffect(() => {
+    if (authToken) {
+      sessionStorage.setItem('authToken', authToken);
+      sessionStorage.setItem('user', JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem('authToken');
+      sessionStorage.removeItem('user');
     }
+  }, [authToken, user]);
+
+  const login = (token, userInfo) => {
+    setAuthToken(token);
+    setUser(userInfo);
   };
 
-  const handleGoogleFailure = (error) => {
-    console.error('Google Login Failed:', error);
-    alert('Google 로그인에 실패했습니다.');
+  const logout = () => {
+    setAuthToken(null);
+    setUser(null);
+    navigate('/log-sign');
   };
 
   return (
-    <div className="logSignPage">
-      <Link to="/" className="logSign-logo">
-        <img src={logoImage} alt="Logo" />
-      </Link>
-      <div className="logSignBox">
-        <h2>로그인 및 회원가입</h2>
-        <p>소셜 로그인 및 회원가입으로<br />MOVIELY의 모든 서비스를 이용하실 수 있습니다.</p>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleFailure}
-        />
-      </div>
-    </div>
+    <AuthContext.Provider value={{ authToken, user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-}
+};
 
-export default LogSignPage;
+export const useAuth = () => useContext(AuthContext);

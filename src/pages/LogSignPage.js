@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import '../css/LogSignPage.css';
 import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext';
@@ -29,9 +29,9 @@ function LogSignPage() {
       if (data.jwtToken) {
         login(data.jwtToken, data.user);
         if (data.isNewUser) {
-          navigate('/complete-profile');
+          navigate('/add'); // 신규 사용자
         } else {
-          navigate('/dashboard');
+          navigate('/movie-select'); // 기존 사용자
         }
       } else {
         alert('로그인에 실패했습니다.');
