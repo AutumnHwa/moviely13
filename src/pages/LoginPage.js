@@ -28,7 +28,7 @@ function LoginPage() {
 
       if (data.jwtToken) {
         login(data.jwtToken, data.user);
-        navigate('/movie-select'); // 로그인 성공 시 영화 선택 페이지로 이동
+        navigate('/movie-select'); 
       } else {
         alert('로그인에 실패했습니다.');
       }

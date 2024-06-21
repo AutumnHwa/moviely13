@@ -43,7 +43,7 @@ function LandingPage() {
         {randomMovies.map((movie, index) => (
           <img
             key={movie.movie_id}
-            src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
             className={`poster poster-${index + 1}`}
           />

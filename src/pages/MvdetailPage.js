@@ -167,7 +167,7 @@ const MvdetailPage = () => {
 
   const validFlatrate = typeof movie.flatrate === 'string' ? movie.flatrate.split(', ').map(service => service.trim().toLowerCase()).filter(Boolean) : [];
 
-  const posterUrl = movie.poster_path ? `http://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/154x231?text=No+Image';
+  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/154x231?text=No+Image';
 
   return (
     <div className="movie-detail-page">
