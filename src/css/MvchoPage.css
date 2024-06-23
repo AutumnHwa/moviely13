@@ -8,13 +8,42 @@
   background-color: #001A56;
 }
 
-.authButton
-{
-  height: 30px;
+.pageHeader {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  position: relative;
 }
+
+.authButtons {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.authButton, .mypageButton {
+  height: 30px;
+  background-color: #f5f5f5;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.authButton:hover, .mypageButton:hover {
+  background-color: #ddd;
+}
+
 .logo {
   margin-top: 10px;
   width: 250px;
+  text-align: center;
 }
 
 .logo img {
