@@ -81,7 +81,7 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     };
 
     try {
-      const response = await fetch(`https://moviely.duckdns.org/${option}`, {
+      const response = await fetch(`https://moviely.duckdns.org/api/${option}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
         </div>
         <button onClick={handleAddClick} className="add-button">+</button>
       </div>
-      {showModal && <Popcho onClose={handleCloseModal} onSave={handleSaveModal} />}
+      {showModal && <Popcho onClose={handleCloseModal} onSave={handleSaveModal} movieId={movieId} userId={userId} />}
       {message && <div className="popupContainer">
         <div className="popupContent">
           <p>{message}</p>
