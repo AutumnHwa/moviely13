@@ -17,15 +17,15 @@ function SignUpPage() {
     console.log("Google Login Success, credential:", credential);
 
     try {
-      console.log("Sending request to 'http://moviely.duckdns.org/api/login'");
-      const res = await fetch('http://moviely.duckdns.org/api/login', { // 여기서 HTTPS로 변경 필요
+      console.log("Sending request to 'https://moviely.duckdns.org/api/login'");
+      const res = await fetch('https://moviely.duckdns.org/api/login', { // 여기서 HTTPS로 변경 필요
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ token: credential }),
       });
-      console.log("Request to 'http://moviely.duckdns.org/api/login' completed");
+      console.log("Request to 'https://moviely.duckdns.org/api/login' completed");
       const data = await res.json();
 
       console.log("Backend response data:", data);
@@ -63,8 +63,8 @@ function SignUpPage() {
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
-      console.log("Sending request to 'http://moviely.duckdns.org/update-info'");
-      const response = await fetch('http://moviely.duckdns.org/update-info', {  // 여기서 HTTPS로 변경 필요
+      console.log("Sending request to 'https://moviely.duckdns.org/update-info'");
+      const response = await fetch('https://moviely.duckdns.org/update-info', {  // 여기서 HTTPS로 변경 필요
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ function SignUpPage() {
         body: JSON.stringify(addInfoData),
       });
 
-      console.log("Request to 'http://moviely.duckdns.org/update-info' completed");
+      console.log("Request to 'https://moviely.duckdns.org/update-info' completed");
       console.log("Response from server:", response);
 
       if (!response.ok) {
