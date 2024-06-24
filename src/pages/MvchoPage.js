@@ -92,7 +92,7 @@ function MvchoPage() {
     if (authToken) {
       logout();
     } else {
-      navigate('/login');
+      navigate('/log-sign');
     }
   };
 
@@ -100,7 +100,7 @@ function MvchoPage() {
     if (authToken) {
       navigate('/my/watched');
     } else {
-      navigate('/login');
+      navigate('/log-sign');
     }
   };
 

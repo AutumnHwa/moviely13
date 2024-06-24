@@ -42,7 +42,7 @@ function MyalrPage() {
     if (authToken) {
       logout();
     } else {
-      navigate('/login');
+      navigate('/log-sign');
     }
   };
 

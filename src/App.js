@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage'; // 수정된 부분
-import SignUpPage from './pages/SignupPage'; // 수정된 부분
+import LogSignPage from './pages/LogSignPage';
 import AddPage from './pages/AddPage';
 import MvchoPage from './pages/MvchoPage';
 import RecomPage from './pages/RecomPage';
@@ -22,8 +21,7 @@ const App = () => (
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} /> {/* 수정된 부분 */}
-          <Route path="/signup" element={<SignUpPage />} /> {/* 수정된 부분 */}
+          <Route path="/log-sign" element={<LogSignPage />} />
           <Route path="/add" element={<AddPage />} />
           <Route path="/movie-select" element={<MvchoPage />} />
           <Route path="/recommendations" element={<RecomPage />} />
