@@ -6,7 +6,7 @@ import MvBanner from './MvBanner';
 import { useAuth } from '../context/AuthContext';
 
 function MyalrPage() {
-  const { authToken, user, logout } = useAuth(); // AuthContext에서 authToken 및 user 가져오기
+  const { authToken, user, logout } = useAuth(); 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();

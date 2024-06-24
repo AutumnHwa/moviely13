@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/Signup.css'; 
@@ -17,14 +17,7 @@ function SignUpPage() {
     console.log("Google Login Success, credential:", credential);
 
     try {
-      const res = await fetch('https://moviely.duckdns.org/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: credential }),
-      });
-      const data = await res.json();
+      const data = await makeFetchRequest('https://moviely.duckdns.org/api/login', { token: credential });
 
       console.log("Backend response data:", data);
 
@@ -55,28 +48,20 @@ function SignUpPage() {
 
     const addInfoData = {
       gender: gender,
-      age: parseInt(age, 10) || 0
+      age: parseInt(age, 10)
     };
+
+    if (isNaN(addInfoData.age) || addInfoData.age <= 0) {
+      alert("유효한 나이를 입력해주세요.");
+      return;
+    }
 
     console.log("Add Info Data: ", JSON.stringify(addInfoData));
 
     try {
       console.log("Making HTTPS request to update info");
-      const response = await fetch('https://moviely.duckdns.org/update-info', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(addInfoData),
-      });
+      const data = await makeFetchRequest('https://moviely.duckdns.org/update-info', addInfoData);
 
-      console.log("Response from server:", response);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
       console.log('Data from server:', data);
 
       if (data.success) {
@@ -90,10 +75,29 @@ function SignUpPage() {
     }
   };
 
-  const ageOptions = [];
-  for (let i = 15; i <= 100; i++) {
-    ageOptions.push(<option key={i} value={i}>{i}</option>);
-  }
+  const makeFetchRequest = async (url, body) => {
+    const response = await fetch(url, { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  };
+
+  const ageOptions = useMemo(() => {
+    const options = [];
+    for (let i = 15; i <= 100; i++) {
+      options.push(<option key={i} value={i}>{i}</option>);
+    }
+    return options;
+  }, []);
 
   return (
     <div className="signUpPage">
@@ -146,5 +150,3 @@ function SignUpPage() {
     </div>
   );
 }
-
-export default SignUpPage;
